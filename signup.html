@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="rahul.css">
+</head>
+<body>
+  <style>
+.error {
+  color: red;
+  font-size: 13px;
+  margin: 0;
+  padding: 0;
+  display: none;
+}
+.input.error-border {
+  border: 1px solid red !important;
+}
+</style>
+
+<div class="royal">
+    <div class="form-box">
+
+<form class="form" id="signupForm">
+    <span class="title">Sign up</span>
+    <span class="subtitle">Create a free account with your email.</span>
+
+    <div class="form-container">
+
+      <!-- FULL NAME -->
+      <input type="text" class="input" id="fullName" placeholder="Full Name">
+      <div class="error" id="errName">Please enter your full name.</div>
+
+      <!-- EMAIL -->
+      <input type="email" class="input" id="email" placeholder="Email">
+      <div class="error" id="errEmail">Please enter a valid email.</div>
+
+      <!-- PASSWORD -->
+      <input type="password" class="input" id="password" placeholder="Password">
+      <div class="error" id="errPass">Password must be at least 6 characters.</div>
+
+    </div>
+
+    <button type="submit" class="login-button">Sign up</button>
+</form>
+
+<div class="form-section">
+  <p>Have an account? <a href="Login.htm">Log in</a></p>
+</div>
+
+</div>
+</div>
+
+
+<script>
+document.getElementById("signupForm").addEventListener("submit", function(e){
+    e.preventDefault();
+
+    // Inputs
+    let name = document.getElementById("fullName");
+    let email = document.getElementById("email");
+    let pass = document.getElementById("password");
+
+    // Error elements
+    let errName = document.getElementById("errName");
+    let errEmail = document.getElementById("errEmail");
+    let errPass = document.getElementById("errPass");
+
+    // Reset errors
+    errName.style.display = "none";
+    errEmail.style.display = "none";
+    errPass.style.display = "none";
+
+    name.classList.remove("error-border");
+    email.classList.remove("error-border");
+    pass.classList.remove("error-border");
+
+    let valid = true;
+
+    // VALIDATE NAME
+    if(name.value.trim() === ""){
+        errName.style.display = "block";
+        name.classList.add("error-border");
+        valid = false;
+    }
+
+    // VALIDATE EMAIL
+    let emailCheck = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if(email.value.trim() === "" || !emailCheck.test(email.value)){
+        errEmail.style.display = "block";
+        email.classList.add("error-border");
+        valid = false;
+    }
+
+    // VALIDATE PASSWORD
+    if(pass.value.trim().length < 6){
+        errPass.style.display = "block";
+        pass.classList.add("error-border");
+        valid = false;
+    }
+
+    // If any field is invalid → stop form
+    if(!valid) return;
+
+    // SUCCESS → Store login status
+    localStorage.setItem("isLoggedIn", "true");
+
+    // Redirect to home
+    window.location.href = "index.html";
+});
+</script>
+
+</body>
+</html>
